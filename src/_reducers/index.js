@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import {snakeReducer} from "./snake.reducers";
+import {snake} from "./snake.reducers";
 
 const rootReducer = combineReducers({
-    snakeReducer,
+    snake,
 });
 export default rootReducer;

@@ -1,7 +1,7 @@
 import initialState from '../_reducers/default.reducers';
 import ac from '../_constants/action.constants';
 
-export function snakeReducer(state = initialState.snake, action) {
+export function snake(state = initialState.snake, action) {
     switch (action.type) {
         case ac.changeDirection:
             return {
