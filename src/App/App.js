@@ -1,27 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import logo from './logo.svg';
+import {Snake} from "../_components";
+
 import './App.css';
 
 class App extends React.Component {
     render() {
-        console.log(this.props)
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
+            <div>
+                <Snake/>
             </div>
         );
     }
@@ -31,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
     const {
         snake,
     } = state;
-    console.log(state);
+    console.log({state})
 
     return {
         snake,
