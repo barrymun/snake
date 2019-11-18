@@ -13,9 +13,9 @@ class Snake extends React.Component {
         const {snake} = this.props;
         let pos = 0;
         let offset = 10;
-        let direction = `left`;
+        let direction = `right`;
 
-        store.dispatch(snakeActions.move(direction, snake.style[direction] + offset));
+        store.dispatch(snakeActions.move(direction));
 
         // this.setState(prevState => ({
         //     snake: {
