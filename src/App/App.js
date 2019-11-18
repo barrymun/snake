@@ -8,7 +8,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Snake/>
+                <Snake {...this.props}/>
             </div>
         );
     }
@@ -18,7 +18,6 @@ const mapStateToProps = (state, ownProps) => {
     const {
         snake,
     } = state;
-    console.log({state})
 
     return {
         snake,

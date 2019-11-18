@@ -1,7 +1,9 @@
 import ac from "../_constants/action.constants";
 
 export default {
-    changeDirection,
+    move,
 }
 
-const changeDirection = direction => ({type: ac.changeDirection, direction});
+function move(direction, position) {
+    return {type: ac.move, direction, position};
+}
