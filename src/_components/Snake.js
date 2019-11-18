@@ -1,35 +1,33 @@
 import React from 'react';
 import {store} from "../_helpers";
-import snakeActions from "../_actions/snake.actions";
+import actions from "../_actions/snake.actions";
+
+import "./css/Snake.css";
 
 class Snake extends React.Component {
 
     componentDidMount() {
-        console.log(this.props)
-        // let id = setInterval(this.move, 1000);
+        const {snake} = this.props;
+        console.log({snake})
+        let id = setInterval(this.move, snake.speed);
     }
 
     move = () => {
-        const {snake} = this.props;
-        let pos = 0;
-        let offset = 10;
         let direction = `right`;
-
-        store.dispatch(snakeActions.move(direction));
-
-        // this.setState(prevState => ({
-        //     snake: {
-        //         ...prevState.snake,
-        //         right: prevState.snake.right += offset
-        //     }
-        // }), () => console.log(this.props.snake))
+        store.dispatch(actions.move(direction));
     };
 
     render() {
         const {snake} = this.props;
         return (
-            <div style={{...snake.style}}>
-                snake
+            <div>
+                {snake.parts.map((o, index) =>
+                    <div
+                        key={index}
+                        className={`snakePart`}
+                        style={o.style}
+                    />
+                )}
             </div>
         );
     }

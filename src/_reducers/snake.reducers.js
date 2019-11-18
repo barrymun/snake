@@ -5,29 +5,36 @@ export function snake(state = initialState.snake, action) {
     switch (action.type) {
         case ac.move:
             const {direction} = action;
-            const offset = 10;
+            const offset = 20;  // same as the width/height of the snake part
             let pos, dir;  // init
+            let [head, ...tail] = state.parts;
+            let [lastPart, ...rest] = state.parts.slice().reverse();
 
             if (direction === `left`) {
                 dir = `left`;
-                pos = state.style[dir] - offset;
+                pos = head.style[dir] - offset;
             } else if (direction === `right`) {
                 dir = `left`;
-                pos = state.style[dir] + offset;
+                pos = head.style[dir] + offset;
             } else if (direction === `up`) {
                 dir = `top`;
-                pos = state.style[dir] - offset;
+                pos = head.style[dir] - offset;
             } else if (direction === `down`) {
                 dir = `top`;
-                pos = state.style[dir] + offset;
+                pos = head.style[dir] + offset;
             }
+
+            let newPart = {
+                ...lastPart,
+                style: {
+                    ...lastPart.style,
+                    [dir]: pos,
+                },
+            };
 
             return {
                 ...state,
-                style: {
-                    ...state.style,
-                    [dir]: pos,
-                }
+                parts: [newPart, ...rest.slice().reverse()],
             };
         default:
             return state;
