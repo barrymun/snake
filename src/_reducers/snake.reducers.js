@@ -40,9 +40,18 @@ export function snake(state = initialState.snake, action) {
                 },
             };
 
+            let parts = [newPart, ...rest.slice().reverse()];
+
+            // collision detection
+            let flag = false;
+            parts.map(part => {
+                let x = parts.filter(o => part.style.left === o.style.left && part.style.top === o.style.top);
+                if (x.length > 1) flag = true;  // collision
+            });
+
             return {
                 ...state,
-                parts: [newPart, ...rest.slice().reverse()],
+                parts,
             };
         case ac.changeDirection:
             return {

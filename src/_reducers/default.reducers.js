@@ -33,8 +33,22 @@ export default {
                     left: 40,
                 }
             },
+            {
+                style: {
+                    ...shared,
+                    top: 100,
+                    left: 20,
+                }
+            },
+            {
+                style: {
+                    ...shared,
+                    top: 100,
+                    left: 0,
+                }
+            },
         ],
-        speed: 100,  // decrement this to go faster (timeout)
+        speed: 1000,  // decrement this to go faster (timeout)
         direction: `right`,
     },
 }

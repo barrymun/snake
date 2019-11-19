@@ -10,6 +10,8 @@ const down = 'ArrowDown';
 const up = 'ArrowUp';
 const movementKeys = [right, left, down, up];
 
+let interval;  // the movement timer
+
 class Snake extends React.Component {
 
     componentDidMount() {
@@ -17,7 +19,8 @@ class Snake extends React.Component {
 
         const {snake} = this.props;
         // console.log({snake})
-        let id = setInterval(this.move, snake.speed);
+        interval = setInterval(this.move, snake.speed);
+        // clearInterval(interval);
     }
 
     keyUp = e => {
@@ -37,6 +40,8 @@ class Snake extends React.Component {
     move = () => {
         store.dispatch(actions.move());
     };
+
+    createFood = () => {};
 
     render() {
         const {snake} = this.props;
