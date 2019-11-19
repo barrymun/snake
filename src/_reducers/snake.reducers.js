@@ -10,18 +10,26 @@ export function snake(state = initialState.snake, action) {
             let [head, ...tail] = state.parts;
             let [lastPart, ...rest] = state.parts.slice().reverse();
 
+            const gameWidth = window.innerWidth;
+            const gameHeight = window.innerHeight;
+            console.log(gameWidth, gameHeight)
+
             if (direction === `left`) {
                 top = head.style.top;
                 left = head.style.left - offset;
+                if (left < 0) left = gameWidth;
             } else if (direction === `right`) {
                 top = head.style.top;
                 left = head.style.left + offset;
+                if (left > gameWidth) left = 0;
             } else if (direction === `up`) {
                 top = head.style.top - offset;
                 left = head.style.left;
+                if (top < 0) top = gameHeight;
             } else if (direction === `down`) {
                 top = head.style.top + offset;
                 left = head.style.left;
+                if (top > gameHeight) top = 0;
             }
 
             let newPart = {

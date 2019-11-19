@@ -13,7 +13,7 @@ class Snake extends React.Component {
     }
 
     move = () => {
-        let direction = `up`;
+        let direction = `down`;
         store.dispatch(actions.move(direction));
     };
 

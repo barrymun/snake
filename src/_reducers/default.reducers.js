@@ -34,6 +34,6 @@ export default {
                 }
             },
         ],
-        speed: 1000,  // decrement this to go faster (timeout)
+        speed: 100,  // decrement this to go faster (timeout)
     },
 }
