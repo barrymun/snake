@@ -4,17 +4,38 @@ import actions from "../_actions/snake.actions";
 
 import "./css/Snake.css";
 
+const right = 'ArrowRight';
+const left = 'ArrowLeft';
+const down = 'ArrowDown';
+const up = 'ArrowUp';
+const movementKeys = [right, left, down, up];
+
 class Snake extends React.Component {
 
     componentDidMount() {
+        window.addEventListener('keyup', this.keyUp);
+
         const {snake} = this.props;
-        console.log({snake})
+        // console.log({snake})
         let id = setInterval(this.move, snake.speed);
     }
 
+    keyUp = e => {
+        const {snake} = this.props;
+        if (!movementKeys.includes(e.key)) return;
+
+        if (e.key === right && snake.direction !== `right` && snake.direction !== `left`)
+            store.dispatch(actions.changeDirection(`right`));
+        else if (e.key === left && snake.direction !== `right` && snake.direction !== `left`)
+            store.dispatch(actions.changeDirection(`left`));
+        else if (e.key === up && snake.direction !== `up` && snake.direction !== `down`)
+            store.dispatch(actions.changeDirection(`up`));
+        else if (e.key === down && snake.direction !== `up` && snake.direction !== `down`)
+            store.dispatch(actions.changeDirection(`down`));
+    };
+
     move = () => {
-        let direction = `down`;
-        store.dispatch(actions.move(direction));
+        store.dispatch(actions.move());
     };
 
     render() {

@@ -35,5 +35,6 @@ export default {
             },
         ],
         speed: 100,  // decrement this to go faster (timeout)
+        direction: `right`,
     },
 }

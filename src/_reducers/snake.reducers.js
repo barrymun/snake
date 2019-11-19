@@ -4,15 +4,14 @@ import ac from '../_constants/action.constants';
 export function snake(state = initialState.snake, action) {
     switch (action.type) {
         case ac.move:
-            const {direction} = action;
+            const direction = state.direction;
             const offset = 20;  // same as the width/height of the snake part
+            const gameWidth = window.innerWidth;
+            const gameHeight = window.innerHeight;
+
             let left, top;  // init
             let [head, ...tail] = state.parts;
             let [lastPart, ...rest] = state.parts.slice().reverse();
-
-            const gameWidth = window.innerWidth;
-            const gameHeight = window.innerHeight;
-            console.log(gameWidth, gameHeight)
 
             if (direction === `left`) {
                 top = head.style.top;
@@ -44,6 +43,11 @@ export function snake(state = initialState.snake, action) {
             return {
                 ...state,
                 parts: [newPart, ...rest.slice().reverse()],
+            };
+        case ac.changeDirection:
+            return {
+                ...state,
+                direction: action.direction,
             };
         default:
             return state;
