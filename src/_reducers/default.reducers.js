@@ -4,6 +4,7 @@ let shared = {
 
 export default {
     snake: {
+        gameOver: false,
         interval: null,  // controlling the acceleration
         parts: [
             {
