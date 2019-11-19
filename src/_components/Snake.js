@@ -10,8 +10,6 @@ const down = 'ArrowDown';
 const up = 'ArrowUp';
 const movementKeys = [right, left, down, up];
 
-let arrowKeyTimer;
-
 class Snake extends React.Component {
 
     componentDidMount() {
@@ -23,6 +21,9 @@ class Snake extends React.Component {
         store.dispatch(actions.move());
     };
 
+    /**
+     *
+     */
     setSnakeInterval = () => {
         const {snake} = this.props;
 

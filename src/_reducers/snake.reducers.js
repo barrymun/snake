@@ -17,7 +17,7 @@ function moveLogic(state, direction) {
     } else if (direction === `right`) {
         top = head.style.top;
         left = head.style.left + offset;
-        if (left > gameWidth) left = 0;
+        if (left > gameWidth - offset) left = 0;
     } else if (direction === `up`) {
         top = head.style.top - offset;
         left = head.style.left;
@@ -25,7 +25,7 @@ function moveLogic(state, direction) {
     } else if (direction === `down`) {
         top = head.style.top + offset;
         left = head.style.left;
-        if (top > gameHeight) top = 0;
+        if (top > gameHeight - offset) top = 0;
     }
 
     let newPart = {
