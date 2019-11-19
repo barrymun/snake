@@ -4,6 +4,7 @@ let shared = {
 
 export default {
     snake: {
+        interval: null,  // controlling the acceleration
         parts: [
             {
                 style: {
@@ -48,7 +49,7 @@ export default {
                 }
             },
         ],
-        speed: 1000,  // decrement this to go faster (timeout)
+        velocity: 1000,  // decrement this to go faster (timeout)
         direction: `right`,
     },
 }

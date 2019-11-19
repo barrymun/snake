@@ -44,10 +44,18 @@ export function snake(state = initialState.snake, action) {
 
             // collision detection
             let flag = false;
-            parts.map(part => {
+            parts.forEach(part => {
                 let x = parts.filter(o => part.style.left === o.style.left && part.style.top === o.style.top);
                 if (x.length > 1) flag = true;  // collision
             });
+
+            if (flag) {
+                // stop the snake from moving
+                clearInterval(state.interval);
+                // returning the state without modification here to give
+                // the illusion of a collision
+                return {...state};
+            }
 
             return {
                 ...state,
@@ -57,6 +65,11 @@ export function snake(state = initialState.snake, action) {
             return {
                 ...state,
                 direction: action.direction,
+            };
+        case ac.changeInterval:
+            return {
+                ...state,
+                interval: action.interval,
             };
         default:
             return state;
