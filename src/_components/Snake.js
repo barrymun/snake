@@ -3,6 +3,10 @@ import {store} from "../_helpers";
 import actions from "../_actions/snake.actions";
 
 import "./css/Snake.css";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const right = 'ArrowRight';
 const left = 'ArrowLeft';
@@ -13,8 +17,15 @@ const movementKeys = [right, left, down, up];
 class Snake extends React.Component {
 
     componentDidMount() {
+        // register events
         window.addEventListener('keyup', this.keyUp);
+
         this.setSnakeInterval();
+    }
+
+    componentWillUnmount() {
+        // de-register events
+        window.removeEventListener('keyup', this.keyUp);
     }
 
     startGame = () => {
@@ -56,6 +67,11 @@ class Snake extends React.Component {
         }
     };
 
+    reset = () => {
+        store.dispatch(actions.resetGame());
+        this.setSnakeInterval();
+    };
+
     createFood = () => {
     };
 
@@ -65,6 +81,22 @@ class Snake extends React.Component {
         return (
             <div>
                 <div>
+                    <Dialog
+                        fullWidth
+                        open={snake.gameOver}
+                    >
+                        <DialogContent>
+                            Game over!
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                color="secondary"
+                                onClick={this.reset}
+                            >
+                                Reset game
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
                 <div>
                     {snake.parts.map((o, index) =>

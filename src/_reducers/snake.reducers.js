@@ -79,6 +79,8 @@ export function snake(state = initialState.snake, action) {
                 ...state,
                 interval: action.interval,
             };
+        case ac.resetGame:
+            return {...initialState.snake};
         default:
             return state;
     }

@@ -4,6 +4,7 @@ export default {
     move,
     changeDirection,
     changeInterval,
+    resetGame,
 }
 
 function move() {
@@ -16,4 +17,8 @@ function changeDirection(direction) {
 
 function changeInterval(interval) {
     return {type: ac.changeInterval, interval};
+}
+
+function resetGame() {
+    return {type: ac.resetGame};
 }
