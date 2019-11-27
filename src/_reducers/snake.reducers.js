@@ -116,8 +116,35 @@ export function snake(state = initialState.snake, action) {
         case ac.resetGame:
             return {...initialState.snake};
         case ac.consumeFood:
+            // create a new location for the food
             let left = generateNewFoodPosition(state.parts[0].style.left, window.innerWidth);
             let top = generateNewFoodPosition(state.parts[0].style.top, window.innerHeight);
+
+            // setup to create a new part
+            let [lastPart, ...rest] = state.parts.slice().reverse();
+            let newPartStyle;
+
+            if (state.direction === `left`) {
+                newPartStyle = {
+                    ...lastPart.style,
+                    left: lastPart.style.left + globalC.snakePiece,
+                };
+            } else if (state.direction === `right`) {
+                newPartStyle = {
+                    ...lastPart.style,
+                    left: lastPart.style.left - globalC.snakePiece,
+                };
+            } else if (state.direction === `up`) {
+                newPartStyle = {
+                    ...lastPart.style,
+                    top: lastPart.style.left + globalC.snakePiece,
+                };
+            } else if (state.direction === `down`) {
+                newPartStyle = {
+                    ...lastPart.style,
+                    top: lastPart.style.left - globalC.snakePiece,
+                };
+            }
 
             return {
                 ...state,
@@ -131,7 +158,11 @@ export function snake(state = initialState.snake, action) {
                         left,
                         top,
                     }
-                }
+                },
+                parts: [
+                    ...state.parts,
+                    {...lastPart, style: {...lastPart.style, ...newPartStyle}},
+                ],
             };
         default:
             return state;
