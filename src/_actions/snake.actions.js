@@ -5,6 +5,7 @@ export default {
     changeDirection,
     changeInterval,
     resetGame,
+    consumeFood,
 }
 
 function move() {
@@ -21,4 +22,8 @@ function changeInterval(interval) {
 
 function resetGame() {
     return {type: ac.resetGame};
+}
+
+function consumeFood() {
+    return {type: ac.consumeFood};
 }

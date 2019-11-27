@@ -3,4 +3,5 @@ export default {
     changeDirection: `changeDirection`,
     changeInterval: `changeInterval`,
     resetGame: `resetGame`,
+    consumeFood: `consumeFood`,
 }

@@ -28,6 +28,22 @@ class Snake extends React.Component {
         window.removeEventListener('keyup', this.keyUp);
     }
 
+    UNSAFE_componentWillUpdate(nextProps, nextState, nextContext) {
+        // console.log(this.props.snake.steps === nextProps.snake.steps)
+        if (this.props.snake.steps === nextProps.snake.steps) return;
+        // console.log(nextProps.snake === this.props.snake)
+        // console.log({nextProps})
+
+        // checking for collision with the food
+        let flag = false;
+        let collisionCheck = nextProps.snake.parts[0].style.left === nextProps.snake.food.style.left
+            && nextProps.snake.parts[0].style.top === nextProps.snake.food.style.top;
+        if (collisionCheck) flag = true;
+
+        // consume the food if the flag has been set
+        if (flag) store.dispatch(actions.consumeFood());
+    }
+
     startGame = () => {
         store.dispatch(actions.move());
     };

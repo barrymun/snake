@@ -67,6 +67,7 @@ export function snake(state = initialState.snake, action) {
             return {
                 ...state,
                 ...r,
+                steps: state.steps + 1,
             };
         case ac.changeDirection:
             r = moveLogic(state, action.direction);
@@ -74,6 +75,7 @@ export function snake(state = initialState.snake, action) {
                 ...state,
                 ...r,
                 direction: action.direction,
+                steps: state.steps + 1,
             };
         case ac.changeInterval:
             return {
@@ -82,6 +84,11 @@ export function snake(state = initialState.snake, action) {
             };
         case ac.resetGame:
             return {...initialState.snake};
+        case ac.consumeFood:
+            // console.log(state.parts)
+            return {
+                ...state,
+            };
         default:
             return state;
     }
