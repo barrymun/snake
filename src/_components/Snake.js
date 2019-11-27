@@ -88,14 +88,14 @@ class Snake extends React.Component {
         this.setSnakeInterval();
     };
 
-    createFood = () => {
-    };
-
     render() {
         const {snake} = this.props;
 
         return (
             <div>
+                <div className={`scoreBoard`}>
+                    Score: {snake.score}
+                </div>
                 <div>
                     <Dialog
                         fullWidth

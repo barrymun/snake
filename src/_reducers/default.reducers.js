@@ -23,6 +23,7 @@ let food = {
 
 export default {
     snake: {
+        score: 0,
         steps: 0,
         gameOver: false,
         interval: null,  // controlling the acceleration

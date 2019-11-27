@@ -148,6 +148,7 @@ export function snake(state = initialState.snake, action) {
 
             return {
                 ...state,
+                score: state.score + 1,
                 velocity: state.velocity <= 50
                     ? state.velocity
                     : state.velocity - 50,

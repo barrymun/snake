@@ -11,3 +11,13 @@
     height: 20px;
     width: 20px;
 }
+
+.scoreBoard {
+    position: absolute;
+    border: 1px solid black;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border-radius: 3px;
+    padding: 10px;
+}
