@@ -2,6 +2,12 @@ import initialState from '../_reducers/default.reducers';
 import ac from '../_constants/action.constants';
 import globalC from "../_constants/global.constants";
 
+/**
+ *
+ * @param state
+ * @param direction
+ * @returns {*}
+ */
 function moveLogic(state, direction) {
     const offset = globalC.snakePiece;  // same as the width/height of the snake part
     const gameWidth = window.innerWidth;
@@ -58,6 +64,27 @@ function moveLogic(state, direction) {
     return {parts};
 }
 
+
+/**
+ *
+ * @param currentPos
+ * @param maximum
+ * @returns {number}
+ */
+function generateNewFoodPosition(currentPos = 0, maximum = 0) {
+    const minimum = 0;
+
+    let n = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+    let r = n - (n % globalC.snakePiece);
+
+    // check if the food x/y position would be put in the same place
+    if (r === currentPos) return generateNewFoodPosition(currentPos, maximum);
+
+    // all clear, return new x/y position
+    return r;
+}
+
+
 export function snake(state = initialState.snake, action) {
     let r;
     switch (action.type) {
@@ -85,9 +112,19 @@ export function snake(state = initialState.snake, action) {
         case ac.resetGame:
             return {...initialState.snake};
         case ac.consumeFood:
-            // console.log(state.parts)
+            let left = generateNewFoodPosition(state.parts[0].style.left, window.innerWidth);
+            let top = generateNewFoodPosition(state.parts[0].style.top, window.innerHeight);
+
             return {
                 ...state,
+                food: {
+                    ...state.food,
+                    style: {
+                        ...state.food.style,
+                        left,
+                        top,
+                    }
+                }
             };
         default:
             return state;

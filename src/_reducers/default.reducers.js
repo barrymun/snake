@@ -2,12 +2,11 @@ import globalC from "../_constants/global.constants";
 
 /**
  *
- * @param x
+ * @param n
  * @returns {number}
  */
-function roundDimensions(x) {
-    let remainder = x % globalC.snakePiece;
-    return x - remainder;
+function roundDimensions(n) {
+    return n - (n % globalC.snakePiece);
 }
 
 let sharedStyle = {
