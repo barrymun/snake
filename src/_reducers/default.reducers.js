@@ -1,10 +1,12 @@
+import globalC from "../_constants/global.constants";
+
 /**
  *
  * @param x
  * @returns {number}
  */
 function roundDimensions(x) {
-    let remainder = x % 20;
+    let remainder = x % globalC.snakePiece;
     return x - remainder;
 }
 
@@ -27,7 +29,6 @@ let food = {
         top: roundDimensions(parseInt(window.innerHeight / 4)),
     },
 };
-console.log({food})
 
 export default {
     snake: {
@@ -35,10 +36,10 @@ export default {
         interval: null,  // controlling the acceleration
         parts: [
             part,
-            {...part, style: {...part.style, left: part.style.left - 20}},
-            {...part, style: {...part.style, left: part.style.left - 40}},
-            {...part, style: {...part.style, left: part.style.left - 60}},
-            {...part, style: {...part.style, left: part.style.left - 80}},
+            {...part, style: {...part.style, left: part.style.left - globalC.snakePiece}},
+            {...part, style: {...part.style, left: part.style.left - (globalC.snakePiece * 2)}},
+            {...part, style: {...part.style, left: part.style.left - (globalC.snakePiece * 3)}},
+            {...part, style: {...part.style, left: part.style.left - (globalC.snakePiece * 4)}},
         ],
         velocity: 1000,  // decrement this to go faster (timeout)
         direction: `right`,

@@ -1,8 +1,9 @@
 import initialState from '../_reducers/default.reducers';
 import ac from '../_constants/action.constants';
+import globalC from "../_constants/global.constants";
 
 function moveLogic(state, direction) {
-    const offset = 20;  // same as the width/height of the snake part
+    const offset = globalC.snakePiece;  // same as the width/height of the snake part
     const gameWidth = window.innerWidth;
     const gameHeight = window.innerHeight;
 
