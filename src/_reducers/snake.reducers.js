@@ -1,6 +1,7 @@
 import initialState from '../_reducers/default.reducers';
 import ac from '../_constants/action.constants';
 import globalC from "../_constants/global.constants";
+import {roundDimensions} from "../_constants";
 
 /**
  *
@@ -10,8 +11,8 @@ import globalC from "../_constants/global.constants";
  */
 function moveLogic(state, direction) {
     const offset = globalC.snakePiece;  // same as the width/height of the snake part
-    const gameWidth = window.innerWidth;
-    const gameHeight = window.innerHeight;
+    const gameWidth = roundDimensions(window.innerWidth);
+    const gameHeight = roundDimensions(window.innerHeight);
 
     let left, top;  // init
     let [head, ...tail] = state.parts;
@@ -74,14 +75,17 @@ function moveLogic(state, direction) {
 function generateNewFoodPosition(currentPos = 0, maximum = 0) {
     const minimum = 0;
 
+    // format maximum (prevent outside boundary clipping)
+    maximum = roundDimensions(maximum);
+
     let n = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-    let r = n - (n % globalC.snakePiece);
+    let newPos = roundDimensions(n);
 
     // check if the food x/y position would be put in the same place
-    if (r === currentPos) return generateNewFoodPosition(currentPos, maximum);
+    if (newPos === currentPos) return generateNewFoodPosition(currentPos, maximum);
 
     // all clear, return new x/y position
-    return r;
+    return newPos;
 }
 
 
@@ -117,6 +121,9 @@ export function snake(state = initialState.snake, action) {
 
             return {
                 ...state,
+                velocity: state.velocity <= 50
+                    ? state.velocity
+                    : state.velocity - 50,
                 food: {
                     ...state.food,
                     style: {

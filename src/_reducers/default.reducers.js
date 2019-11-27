@@ -1,13 +1,5 @@
 import globalC from "../_constants/global.constants";
-
-/**
- *
- * @param n
- * @returns {number}
- */
-function roundDimensions(n) {
-    return n - (n % globalC.snakePiece);
-}
+import {roundDimensions} from "../_constants";
 
 let sharedStyle = {
     position: `absolute`,
