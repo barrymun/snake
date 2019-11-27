@@ -4,3 +4,10 @@
     height: 20px;
     width: 20px;
 }
+
+.snakeFood {
+    background-color: black;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}

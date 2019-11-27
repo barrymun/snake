@@ -1,14 +1,33 @@
-let shared = {
+/**
+ *
+ * @param x
+ * @returns {number}
+ */
+function roundDimensions(x) {
+    let remainder = x % 20;
+    return x - remainder;
+}
+
+let sharedStyle = {
     position: `absolute`,
 };
 
 let part = {
     style: {
-        ...shared,
-        left: parseInt(window.innerWidth / 2),
-        top: parseInt(window.innerHeight / 2),
+        ...sharedStyle,
+        left: roundDimensions(parseInt(window.innerWidth / 2)),
+        top: roundDimensions(parseInt(window.innerHeight / 2)),
     }
 };
+
+let food = {
+    style: {
+        ...sharedStyle,
+        left: roundDimensions(parseInt(window.innerWidth / 4) * 3),
+        top: roundDimensions(parseInt(window.innerHeight / 4)),
+    },
+};
+console.log({food})
 
 export default {
     snake: {
@@ -23,5 +42,6 @@ export default {
         ],
         velocity: 1000,  // decrement this to go faster (timeout)
         direction: `right`,
+        food,
     },
 }

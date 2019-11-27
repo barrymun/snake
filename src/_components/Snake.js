@@ -98,15 +98,21 @@ class Snake extends React.Component {
                         </DialogActions>
                     </Dialog>
                 </div>
+
                 <div>
                     {snake.parts.map((o, index) =>
                         <div
                             key={index}
-                            className={`snakePart`}
                             style={o.style}
+                            className={`snakePart`}
                         />
                     )}
                 </div>
+
+                <div
+                    style={{...snake.food.style}}
+                    className={`snakeFood`}
+                />
             </div>
         );
     }
