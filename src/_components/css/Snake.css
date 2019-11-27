@@ -21,3 +21,30 @@
     border-radius: 3px;
     padding: 10px;
 }
+
+.mobileDirectionalKeys {
+}
+
+.arrowDown {
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+}
+
+.arrowLeft {
+    position: fixed;
+    bottom: 60px;
+    right: 80px;
+}
+
+.arrowRight {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+}
+
+.arrowUp {
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+}

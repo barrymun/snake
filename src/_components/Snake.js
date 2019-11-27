@@ -2,11 +2,17 @@ import React from 'react';
 import {store} from "../_helpers";
 import actions from "../_actions/snake.actions";
 
-import "./css/Snake.css";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import DialogContent from "@material-ui/core/DialogContent";
+import Fab from "@material-ui/core/Fab";
+import ArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import ArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+
+import "./css/Snake.css";
 
 const right = 'ArrowRight';
 const left = 'ArrowLeft';
@@ -65,19 +71,27 @@ class Snake extends React.Component {
      * @returns {Promise<void>}
      */
     keyUp = async e => {
-        const {snake} = this.props;
         if (!movementKeys.includes(e.key)) return;
+        await this.handleMoveLogic(e.key);
+    };
 
-        if (e.key === right && snake.direction !== `right` && snake.direction !== `left`) {
+    onClickFab = async direction => {
+        await this.handleMoveLogic(direction);
+    };
+
+    handleMoveLogic = async arrowDir => {
+        const {snake} = this.props;
+
+        if (arrowDir === right && snake.direction !== `right` && snake.direction !== `left`) {
             this.setSnakeInterval();
             store.dispatch(actions.changeDirection(`right`));
-        } else if (e.key === left && snake.direction !== `right` && snake.direction !== `left`) {
+        } else if (arrowDir === left && snake.direction !== `right` && snake.direction !== `left`) {
             this.setSnakeInterval();
             store.dispatch(actions.changeDirection(`left`));
-        } else if (e.key === up && snake.direction !== `up` && snake.direction !== `down`) {
+        } else if (arrowDir === up && snake.direction !== `up` && snake.direction !== `down`) {
             this.setSnakeInterval();
             store.dispatch(actions.changeDirection(`up`));
-        } else if (e.key === down && snake.direction !== `up` && snake.direction !== `down`) {
+        } else if (arrowDir === down && snake.direction !== `up` && snake.direction !== `down`) {
             this.setSnakeInterval();
             store.dispatch(actions.changeDirection(`down`));
         }
@@ -96,6 +110,7 @@ class Snake extends React.Component {
                 <div className={`scoreBoard`}>
                     Score: {snake.score}
                 </div>
+
                 <div>
                     <Dialog
                         fullWidth
@@ -129,6 +144,45 @@ class Snake extends React.Component {
                     style={{...snake.food.style}}
                     className={`snakeFood`}
                 />
+
+                <div className={`mobileDirectionalKeys`}>
+                    <div className={`arrowUp`}>
+                        <Fab
+                            color="primary"
+                            size="small"
+                            onClick={() => this.onClickFab(up)}
+                        >
+                            <ArrowUpIcon/>
+                        </Fab>
+                    </div>
+                    <div className={`arrowDown`}>
+                        <Fab
+                            color="primary"
+                            size="small"
+                            onClick={() => this.onClickFab(down)}
+                        >
+                            <ArrowDownIcon/>
+                        </Fab>
+                    </div>
+                    <div className={`arrowLeft`}>
+                        <Fab
+                            color="primary"
+                            size="small"
+                            onClick={() => this.onClickFab(left)}
+                        >
+                            <ArrowLeftIcon/>
+                        </Fab>
+                    </div>
+                    <div className={`arrowRight`}>
+                        <Fab
+                            color="primary"
+                            size="small"
+                            onClick={() => this.onClickFab(right)}
+                        >
+                            <ArrowRightIcon/>
+                        </Fab>
+                    </div>
+                </div>
             </div>
         );
     }
