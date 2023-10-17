@@ -37,15 +37,20 @@ class SnakeGame(Widget):
         self.snake_pos = [new_head] + self.snake_pos[:-1]
         
         # Check for collision with food
-        if self.snake_pos[0] == self.food_pos:
+        if (self.snake_pos[0][0] < self.food_pos[0] + self.snake_size and
+            self.snake_pos[0][0] + self.snake_size > self.food_pos[0] and
+            self.snake_pos[0][1] < self.food_pos[1] + self.snake_size and
+            self.snake_pos[0][1] + self.snake_size > self.food_pos[1]):
             self.snake_pos.append(self.snake_pos[-1])
-            self.food_pos = [randint(0, 480), randint(0, 480)]
+            self.food_pos[0] = (randint(0, (self.width // self.snake_size) - 1) * self.snake_size)
+            self.food_pos[1] = (randint(0, (self.height // self.snake_size) - 1) * self.snake_size)
             self.snake_rectangles.append(Rectangle(pos=self.snake_pos[-1], size=(self.snake_size, self.snake_size)))
 
         # Update graphics
         for idx, rect in enumerate(self.snake_rectangles):
             rect.pos = self.snake_pos[idx]
         self.food_rectangle.pos = self.food_pos
+
 
     def on_key_down(self, keyboard, keycode, text, modifiers):
         if keycode[1] == 'left' and not self.direction == 'right':
