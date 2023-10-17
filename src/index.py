@@ -29,7 +29,11 @@ class SnakeGame(Widget):
             new_head = [self.snake_pos[0][0], self.snake_pos[0][1] + self.snake_size]
         elif self.direction == 'down':
             new_head = [self.snake_pos[0][0], self.snake_pos[0][1] - self.snake_size]
-            
+
+        # wrap around screen
+        new_head[0] = new_head[0] % self.width
+        new_head[1] = new_head[1] % self.height
+
         self.snake_pos = [new_head] + self.snake_pos[:-1]
         
         # Check for collision with food
