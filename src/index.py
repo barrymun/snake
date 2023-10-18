@@ -34,23 +34,44 @@ class SnakeGame(Widget):
         new_head[0] = new_head[0] % self.width
         new_head[1] = new_head[1] % self.height
 
-        self.snake_pos = [new_head] + self.snake_pos[:-1]
-        
         # Check for collision with food
         if (self.snake_pos[0][0] < self.food_pos[0] + self.snake_size and
             self.snake_pos[0][0] + self.snake_size > self.food_pos[0] and
             self.snake_pos[0][1] < self.food_pos[1] + self.snake_size and
             self.snake_pos[0][1] + self.snake_size > self.food_pos[1]):
-            self.snake_pos.append(self.snake_pos[-1])
+            # Collision detected, update the snake and fruit positions accordingly
+
+            # # Move the snake
+            self.snake_pos = [new_head] + self.snake_pos[:-1]
+
+            # Update the fruit's position
             self.food_pos[0] = (randint(0, (self.width // self.snake_size) - 1) * self.snake_size)
             self.food_pos[1] = (randint(0, (self.height // self.snake_size) - 1) * self.snake_size)
-            self.snake_rectangles.append(Rectangle(pos=self.snake_pos[-1], size=(self.snake_size, self.snake_size)))
 
-        # Update graphics
-        for idx, rect in enumerate(self.snake_rectangles):
-            rect.pos = self.snake_pos[idx]
-        self.food_rectangle.pos = self.food_pos
+            # Add the new segment to the snake's position list
+            last_segment_pos = self.snake_pos[-1]
+            if self.direction == 'left':
+                new_segment_pos = [last_segment_pos[0] + self.snake_size, last_segment_pos[1]]
+            elif self.direction == 'right':
+                new_segment_pos = [last_segment_pos[0] - self.snake_size, last_segment_pos[1]]
+            elif self.direction == 'up':
+                new_segment_pos = [last_segment_pos[0], last_segment_pos[1] - self.snake_size]
+            elif self.direction == 'down':
+                new_segment_pos = [last_segment_pos[0], last_segment_pos[1] + self.snake_size]
+            self.snake_pos.append(new_segment_pos)
+            self.snake_rectangles.append(Rectangle(pos=new_segment_pos, size=(self.snake_size, self.snake_size)))
+        else:
+            # If no collision, just move the snake
+            self.snake_pos = [new_head] + self.snake_pos[:-1]
 
+        # Clear the canvas
+        self.canvas.clear()
+
+        # Redraw the snake and the fruit
+        with self.canvas:
+            for pos in self.snake_pos:
+                Rectangle(pos=pos, size=(self.snake_size, self.snake_size))
+            Rectangle(pos=self.food_pos, size=(self.snake_size, self.snake_size))
 
     def on_key_down(self, keyboard, keycode, text, modifiers):
         if keycode[1] == 'left' and not self.direction == 'right':
