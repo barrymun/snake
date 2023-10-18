@@ -20,8 +20,8 @@ class SnakeGame(Widget):
             self.food_rectangle = Rectangle(pos=self.food_pos, size=(self.snake_size, self.snake_size))
         
         Clock.schedule_interval(self.update, 0.15)
-
-    def update(self, dt):
+    
+    def move_snake(self):
         # Update snake position
         if self.direction == 'left':
             new_head = [self.snake_pos[0][0] - self.snake_size, self.snake_pos[0][1]]
@@ -31,16 +31,22 @@ class SnakeGame(Widget):
             new_head = [self.snake_pos[0][0], self.snake_pos[0][1] + self.snake_size]
         elif self.direction == 'down':
             new_head = [self.snake_pos[0][0], self.snake_pos[0][1] - self.snake_size]
+        else:
+            raise Exception("Invalid direction")
 
         # wrap around screen
         new_head[0] = new_head[0] % self.width
         new_head[1] = new_head[1] % self.height
 
+        return new_head
+
+    def check_snake_collision(self):
         # Check for collision with snake
         head_pos = self.snake_pos[0]
         if head_pos in self.snake_pos[1:]:
             print("Game Over!")
 
+    def check_food_collision(self, new_head):
         # Check for collision with food
         if (self.snake_pos[0][0] < self.food_pos[0] + self.snake_size and
             self.snake_pos[0][0] + self.snake_size > self.food_pos[0] and
@@ -70,6 +76,11 @@ class SnakeGame(Widget):
         else:
             # If no collision, just move the snake
             self.snake_pos = [new_head] + self.snake_pos[:-1]
+
+    def update(self, dt):
+        new_head = self.move_snake()
+        self.check_snake_collision()
+        self.check_food_collision(new_head=new_head)
 
         # Clear the canvas
         self.canvas.clear()
