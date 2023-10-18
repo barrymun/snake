@@ -12,8 +12,17 @@ class SnakeGame(Widget):
     """
     Main game class.
     """
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    snake_size = None
+    snake_pos = None
+    snake_rectangles = None
+    direction = None
+    food_pos = None
+    food_rectangle = None
+    
+    def start_game(self):
+        """
+        Start the game.
+        """
         self.snake_size = 20
         self.snake_pos = [[200, 200], [220, 200], [240, 200]]
         self.direction = 'left'
