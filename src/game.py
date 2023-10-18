@@ -1,9 +1,11 @@
 from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle
 from kivy.clock import Clock
 from kivy.core.window import Window
+from kivy.graphics import Rectangle
+from kivy.uix.widget import Widget
 from random import randint
+
+from src.utils.constants import WINDOW_HEIGHT, WINDOW_WIDTH
 
 class SnakeGame(Widget):
     def __init__(self, **kwargs):
@@ -11,7 +13,7 @@ class SnakeGame(Widget):
         self.snake_size = 20
         self.snake_pos = [[200, 200], [220, 200], [240, 200]]
         self.direction = 'left'
-        self.food_pos = [randint(0, 480), randint(0, 480)]
+        self.food_pos = [randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)]
         
         with self.canvas:
             self.snake_rectangles = [Rectangle(pos=pos, size=(self.snake_size, self.snake_size)) for pos in self.snake_pos]
@@ -94,6 +96,3 @@ class SnakeApp(App):
     def _keyboard_closed(self):
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
         self._keyboard = None
-
-if __name__ == '__main__':
-    SnakeApp().run()
