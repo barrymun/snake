@@ -10,7 +10,7 @@ Config.set('graphics', 'width', WINDOW_WIDTH)
 Config.set('graphics', 'height', WINDOW_HEIGHT)
 
 # pylint: disable-next=wrong-import-position
-from src.game import SnakeApp
+from src.app import SnakeApp
 
 if __name__ == '__main__':
     SnakeApp().run()
