@@ -36,6 +36,11 @@ class SnakeGame(Widget):
         new_head[0] = new_head[0] % self.width
         new_head[1] = new_head[1] % self.height
 
+        # Check for collision with snake
+        head_pos = self.snake_pos[0]
+        if head_pos in self.snake_pos[1:]:
+            print("Game Over!")
+
         # Check for collision with food
         if (self.snake_pos[0][0] < self.food_pos[0] + self.snake_size and
             self.snake_pos[0][0] + self.snake_size > self.food_pos[0] and
