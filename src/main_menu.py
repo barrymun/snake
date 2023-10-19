@@ -9,14 +9,14 @@ class MainMenu(BoxLayout):
     """
     Main menu for the game.
     """
-    game = None
+    snake_app = None
     orientation = 'vertical'
     start_button = None
     quit_button = None
     
-    def __init__(self, game, **kwargs):
+    def __init__(self, snake_app, **kwargs):
         super().__init__(**kwargs)
-        self.game = game
+        self.snake_app = snake_app
         self.orientation = 'vertical'
         
         self.start_button = Button(text='Start Game')
@@ -34,8 +34,9 @@ class MainMenu(BoxLayout):
         """
         Start the game.
         """
-        self.game.start_game()
         self.parent.remove_widget(self)
+        self.snake_app.start(self)
+        self.snake_app.game.start_game()
     
     def quit_game(self, _instance):
         """

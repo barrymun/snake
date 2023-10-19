@@ -18,6 +18,7 @@ class SnakeGame(Widget):
     direction = None
     food_pos = None
     food_rectangle = None
+    paused = False
     
     def start_game(self):
         """
@@ -101,6 +102,9 @@ class SnakeGame(Widget):
         """
         Update the game state.
         """
+        if self.paused:
+            return
+        
         new_head = self.move_snake()
         self.check_snake_collision()
         self.check_food_collision(new_head=new_head)
