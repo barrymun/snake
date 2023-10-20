@@ -35,7 +35,7 @@ class MainMenu(BoxLayout):
         Start the game.
         """
         self.parent.remove_widget(self)
-        self.snake_app.start(self)
+        self.snake_app.setup_widgets(self)
         self.snake_app.game.start_game()
     
     def quit_game(self, _instance):

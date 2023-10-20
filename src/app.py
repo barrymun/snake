@@ -28,9 +28,8 @@ class SnakeApp(App):
 
         self.root_layout = BoxLayout()
         self.root_layout.add_widget(self.menu)
-        # self.root_layout.add_widget(self.game)
 
-        self.pause_button = Button(text='Pause', size=(20, 20))
+        self.pause_button = Button(text='Pause', size_hint=(None, None), size=(120, 60))
         self.pause_button.bind(on_release=self.toggle_pause)
 
         self.game_layout = GridLayout(rows=2, cols=1)
@@ -39,7 +38,7 @@ class SnakeApp(App):
         self._keyboard.bind(on_key_down=self.game.on_key_down)
         return self.root_layout
     
-    def start(self, _instance):
+    def setup_widgets(self, _instance):
         self.game_layout.add_widget(self.pause_button)
         self.game_layout.add_widget(self.game)
         self.root_layout.add_widget(self.game_layout)
