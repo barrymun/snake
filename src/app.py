@@ -5,11 +5,10 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.uix.gridlayout import GridLayout
 
 from src.main_menu import MainMenu
 from src.game import SnakeGame
-from src.utils.constants import WINDOW_HEIGHT, WINDOW_WIDTH
+from src.widgets.bordered_grid_layout import BorderedGridLayout
 
 class SnakeApp(App):
     """
@@ -23,7 +22,8 @@ class SnakeApp(App):
     _keyboard = None
     
     def build(self):
-        self.game = SnakeGame(size=(WINDOW_WIDTH, WINDOW_HEIGHT))
+        # self.game = SnakeGame(size_hint=(None, None), size=(WINDOW_WIDTH, (WINDOW_HEIGHT - 60)))
+        self.game = SnakeGame()
         self.menu = MainMenu(self)
 
         self.root_layout = BoxLayout()
@@ -32,7 +32,7 @@ class SnakeApp(App):
         self.pause_button = Button(text='Pause', size_hint=(None, None), size=(120, 60))
         self.pause_button.bind(on_release=self.toggle_pause)
 
-        self.game_layout = GridLayout(rows=2, cols=1)
+        self.game_layout = BorderedGridLayout(border_offsets=[60], rows=2, cols=1)
         
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self.game)
         self._keyboard.bind(on_key_down=self.game.on_key_down)
