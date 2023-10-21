@@ -12,6 +12,7 @@ class SnakeGame(Widget):
     """
     Main game class.
     """
+    snake_app = None
     snake_size = None
     snake_pos = None
     snake_rectangles = None
@@ -19,6 +20,10 @@ class SnakeGame(Widget):
     food_pos = None
     food_rectangle = None
     paused = False
+
+    def __init__(self, snake_app, **kwargs):
+        super().__init__(**kwargs)
+        self.snake_app = snake_app
     
     def start_game(self):
         """
@@ -64,6 +69,7 @@ class SnakeGame(Widget):
         head_pos = self.snake_pos[0]
         if head_pos in self.snake_pos[1:]:
             print("Game Over!")
+            self.snake_app.game_over(self)
 
     def check_food_collision(self, new_head):
         """

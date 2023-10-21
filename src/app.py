@@ -20,10 +20,9 @@ class SnakeApp(App):
     game_layout = None
     pause_button = None
     _keyboard = None
+    is_game_over = False
     
     def build(self):
-        # self.game = SnakeGame(size_hint=(None, None), size=(WINDOW_WIDTH, (WINDOW_HEIGHT - 60)))
-        self.game = SnakeGame()
         self.menu = MainMenu(self)
 
         self.root_layout = BoxLayout()
@@ -34,19 +33,33 @@ class SnakeApp(App):
 
         self.game_layout = BorderedGridLayout(border_offsets=[60], rows=2, cols=1)
         
-        self._keyboard = Window.request_keyboard(self._keyboard_closed, self.game)
-        self._keyboard.bind(on_key_down=self.game.on_key_down)
         return self.root_layout
     
     def setup_widgets(self, _instance):
         self.game_layout.add_widget(self.pause_button)
+        self.game = SnakeGame(self)
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self.game)
+        self._keyboard.bind(on_key_down=self.game.on_key_down)
         self.game_layout.add_widget(self.game)
         self.root_layout.add_widget(self.game_layout)
+        self.is_game_over = False
+    
+    def game_over(self, _instance):
+        # don't allow game to be over twice
+        if self.is_game_over:
+            return
+        self.is_game_over = True
+        
+        self.game_layout.remove_widget(self.pause_button)
+        self.game_layout.remove_widget(self.game)
+        self.root_layout.remove_widget(self.game_layout)
+        self.menu = MainMenu(self)
+        self.root_layout.add_widget(self.menu)
     
     def toggle_pause(self, _instance):
         self.game.paused = not self.game.paused
         self.pause_button.text = 'Resume' if self.game.paused else 'Pause'
 
     def _keyboard_closed(self):
-        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard.unbind(on_key_down=self.game.on_key_down)
         self._keyboard = None
