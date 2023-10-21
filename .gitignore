@@ -1,2 +1,16 @@
 env
 **/__pycache__/
+build/
+dist/
+*.egg-info/
+.eggs/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.log
+*.out
+*.pid
+*.coverage
+*.cache
+*.DS_Store
