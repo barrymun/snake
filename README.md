@@ -1,4 +1,4 @@
-# Snake Game 🐍
+# Snake 🐍
 
 A classic game implemented in Python. Guide the snake to eat food and grow as long as possible without running into the walls or itself.
 
