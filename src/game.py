@@ -24,7 +24,7 @@ class SnakeGame(Widget):
     def __init__(self, snake_app, **kwargs):
         super().__init__(**kwargs)
         self.snake_app = snake_app
-    
+
     def start_game(self):
         """
         Start the game.
@@ -40,7 +40,7 @@ class SnakeGame(Widget):
             ]
             self.food_rectangle = Rectangle(pos=self.food_pos, size=(self.snake_size, self.snake_size))
         Clock.schedule_interval(self.update, 0.15)
-    
+
     def move_snake(self):
         """
         Move the snake.
@@ -110,7 +110,7 @@ class SnakeGame(Widget):
         """
         if self.paused:
             return
-        
+
         new_head = self.move_snake()
         self.check_snake_collision()
         self.check_food_collision(new_head=new_head)
