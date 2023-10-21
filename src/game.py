@@ -8,6 +8,7 @@ from kivy.uix.widget import Widget
 
 from src.utils.constants import WINDOW_HEIGHT, WINDOW_WIDTH
 
+# pylint: disable-next=too-many-instance-attributes
 class SnakeGame(Widget):
     """
     Main game class.
@@ -15,6 +16,7 @@ class SnakeGame(Widget):
     snake_app = None
     snake_size = None
     snake_pos = None
+    previous_snake_head_pos = None
     snake_rectangles = None
     direction = None
     food_pos = None
@@ -128,6 +130,12 @@ class SnakeGame(Widget):
         """
         Handle key presses.
         """
+        # prevent the snake from going backwards
+        if (self.previous_snake_head_pos and self.snake_pos[0] == self.previous_snake_head_pos):
+            # set the previous snake head position so that movement can continue
+            self.previous_snake_head_pos = self.snake_pos[0]
+            return True
+
         if keycode[1] == 'left' and not self.direction == 'right':
             self.direction = 'left'
         elif keycode[1] == 'right' and not self.direction == 'left':
@@ -136,4 +144,7 @@ class SnakeGame(Widget):
             self.direction = 'up'
         elif keycode[1] == 'down' and not self.direction == 'up':
             self.direction = 'down'
+
+        # set the previous snake head position
+        self.previous_snake_head_pos = self.snake_pos[0]
         return True
